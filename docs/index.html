@@ -22,7 +22,7 @@
       <h1>AdaCucumber</h1>
       <nav class="menu-nav">
         <ul class="menu">
-          <li class="item">
+          <li class="item js-plus-icon">
             <span class="fas fa-plus-circle"> </span>
           </li>
         </ul>
@@ -30,73 +30,49 @@
     </section>
   </header>
 
-  <main>
-    <section class="new-form collapsed">
+  <main class="js-main">
+    <section class="new-form js-new-form collapsed">
       <h2 class="title">More pepinos plis</h2>
+      <p class="sad-text">Recuerda que este gatito está mirando todo lo que añades, no hagas llorar
+        al gatito :(</p>
+      <img class="sad-kitten" src="./assets/images/kitten.jpg"
+        alt="Gatito muy pequeño y triste porque lee tu mente sucia">
       <form class="form">
-        <input class="input" type="text" placeholder="Url de la foto" required />
-        <input class="input" type="text" placeholder="Nombre" required />
-        <input class="input" type="text" placeholder="Descripción" required />
-        <label class=""></label>
-        <button class="button">Añadir</button>
-        <button class="button-cancel">Cancelar</button>
+        <input class="input js-pepino-img" type="text" placeholder="Url de la foto" required />
+        <input class="input js-pepino-name" type="text" placeholder="Nombre" required />
+        <input class="input js-pepino-desc" type="text" placeholder="Descripción" required />
+        <label class="js-new-form-error"></label>
+        <button class="button js-button-add">Añadir</button>
+        <button class="button-cancel js-button-cancel">Cancelar</button>
       </form>
     </section>
 
-    <section class="about-us">
-      <h1 class="title">AdaCucumber</h1>
-      <h2 class="subtitle">let pepinos = 'free';</h2>
-    </section>
+    <div class="js-hide-form-area">
+      <section class="about-us">
+        <h1 class="title">AdaCucumber</h1>
+        <h2 class="subtitle">let pepinos = 'be free';</h2>
+      </section>
 
-    <section class="search">
-      <h2 class="title">Filtrar / Buscar</h2>
-      <form class="form">
-        <input class="input" type="text" name="race" placeholder="Nombre" id="name" />
-        <input class="input" type="text" placeholder="Descripción" id="desc" />
-        <button class="button">Buscar</button>
-      </form>
-    </section>
+      <section class="search">
+        <h2 class="title">Filtrar / Buscar</h2>
+        <form class="form js-search-form">
+          <input class="input js-search-input-name" type="text" name="name" placeholder="Nombre" id="name" />
+          <input class="input js-search-input-desc" type="text" placeholder="Descripción" id="desc" />
+          <label class="js-search-form-error"></label>
+          <button class="button js-search-button">Buscar</button>
+        </form>
+      </section>
 
-    <section class="data">
-      <ul class="list">
-        <li class="card">
-          <article>
-            <img class="card_img" src="./assets/images/pepino-clasico.jpg" alt="Pepino clasico" />
-            <h3 class="card_title">Pepino clásico</h3>
-            <p class="card_description">
-              El que te encuentras en el Mercadona.
-            </p>
-          </article>
-        </li>
-
-        <li class="card">
-          <img class="card_img" src="./assets/images/alficoz.jpg" alt="Alficoz" />
-          <h3 class="card_title">Alficoz</h3>
-          <p class="card_description">
-            Va pa'lante como los de Alicante.
-          </p>
-        </li>
-        <li class="card">
-          <img class="card_img" src="./assets/images/pepino-mar.jpg" alt="Pepino de mar" />
-          <h3 class="card_title">Pepino de mar</h3>
-          <p class="card_description">
-            La foto está borrosa porque son muy feos.
-          </p>
-        </li>
-        <li class="card">
-          <img class="card_img" src="./assets/images/benedict-cucumberbatch.jpg" alt="Benedict Cucumberbatch" />
-          <h3 class="card_title">Benedict Cucumberbatch</h3>
-          <p class="card_description">
-            An English pepino indeed.
-          </p>
-        </li>
-      </ul>
-    </section>
+      <section class="data">
+        <ul class="list js-pepino-list">
+        </ul>
+      </section>
   </main>
   <footer class="footer">
     <h3 class="subtittle">&copy; blancaum feat Adalab 2022</h3>
   </footer>
-  <script src="./js/main.js"></script>
+  <script src="./assets/js/main.js"></script>
 </body>
+</div>
 
 </html>
