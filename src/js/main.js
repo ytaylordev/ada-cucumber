@@ -25,6 +25,7 @@ const searchFormElement = getEl('.js-search-form');
 const inputSearchNameElement = getEl('.js-search-input-name');
 const inputSearchDescElement = getEl('.js-search-input-desc');
 const labelSearchErrorElement = getEl('.js-search-form-error');
+const searchButton = getEl('.js-search-button');
 
 //Pepinos
 const pepino1 = getPepino(
@@ -48,13 +49,13 @@ const pepino4 = getPepino(
   'An English pepino indeed.'
 );
 
-const pepinos = [pepino1, pepino2, pepino3, pepino4];
+const allPepinos = [pepino1, pepino2, pepino3, pepino4];
 
 /*END VARIABLES*/
 
 /************FUNCTIONS*************/
 function getEl(className) {
-  let result = '';
+  let result = {};
   if (document.querySelector(className)) {
     result = document.querySelector(className);
   } else {
@@ -87,12 +88,12 @@ function getPepino(imgSrc, name, desc) {
 }
 
 function addNewPepino(imgSrc, name, desc) {
-  pepinos[pepinos.length] = getPepino(imgSrc, name, desc);
+  allPepinos[allPepinos.length] = getPepino(imgSrc, name, desc);
 }
 
-function renderAllPepinos() {
+function renderPepinos(pepinosArray) {
   pepinoListElement.innerHTML = '';
-  pepinos.forEach((element) => {
+  pepinosArray.forEach((element) => {
     pepinoListElement.innerHTML += element.renderPepinoItem();
   });
 }
@@ -104,8 +105,13 @@ function cleanNewForm() {
   inputDescElement.value = '';
 }
 
+function cleanSearchForm() {
+  searchFormElement.reset();
+}
+
 function plusIconClickHandler() {
   newFormElement.classList.toggle('collapsed');
+  labelSearchErrorElement.innerHTML = '';
 }
 
 function hideNewFormAreaClickHandler() {
@@ -125,7 +131,8 @@ function addButtonClickHandler(event) {
   } else {
     labelErrorElement.innerHTML = '';
     addNewPepino(valueImg, valueName, valueDesc);
-    renderAllPepinos();
+    renderPepinos(allPepinos);
+    cleanNewForm();
     newFormElement.classList.add('collapsed');
   }
 }
@@ -136,11 +143,76 @@ function cancelButtonClickHandler(event) {
   newFormElement.classList.add('collapsed');
 }
 
+function searchByTwoParams(name, desc, searchArray) {
+  const foundArray = [];
+  let i = 0;
+  searchArray.forEach((element) => {
+    const currentName = element.name.toLowerCase();
+    const currentDesc = element.desc.toLowerCase();
+    if (currentName.includes(name) && currentDesc.includes(desc)) {
+      foundArray[i] = element;
+      i++;
+    }
+  });
+  return foundArray;
+}
+
+function searchByName(name, searchArray) {
+  const foundArray = [];
+  let i = 0;
+  searchArray.forEach((element) => {
+    const currentName = element.name.toLowerCase();
+    if (currentName.includes(name)) {
+      foundArray[i] = element;
+      i++;
+    }
+  });
+  return foundArray;
+}
+
+function searchByDesc(desc, searchArray) {
+  const foundArray = [];
+  let i = 0;
+  searchArray.forEach((element) => {
+    const currentDesc = element.desc.toLowerCase();
+    if (currentDesc.includes(desc)) {
+      foundArray[i] = element;
+      i++;
+    }
+  });
+  return foundArray;
+}
+
+function searchButtonClickHandler(event) {
+  {
+    event.preventDefault();
+    const valueName = inputSearchNameElement.value.toLowerCase();
+    const valueDesc = inputSearchDescElement.value.toLowerCase();
+
+    labelSearchErrorElement.innerHTML = '';
+    let foundPepinos = [];
+
+    if (valueName && valueDesc) {
+      foundPepinos = searchByTwoParams(valueName, valueDesc, allPepinos);
+      renderPepinos(foundPepinos);
+    } else if (valueName && !valueDesc) {
+      foundPepinos = searchByName(valueName, allPepinos);
+      renderPepinos(foundPepinos);
+    } else if (!valueName && valueDesc) {
+      foundPepinos = searchByDesc(valueDesc, allPepinos);
+      renderPepinos(foundPepinos);
+    } else {
+      labelSearchErrorElement.innerHTML = 'Rellena alguno de los campos';
+      renderPepinos(allPepinos);
+    }
+  }
+}
+
 /*END FUNCTIONS*/
 
 /************RENDER PEPINOS AT START*************/
 
-renderAllPepinos();
+renderPepinos(allPepinos);
 
 /*END RENDER PEPINOS AT START*/
 
@@ -156,9 +228,8 @@ cancelButton.addEventListener('click', (event) =>
   cancelButtonClickHandler(event)
 );
 
-// searchFormElement.addEventListener('click', (event) => {
-//   const valueName = inputSearchNameElement.value;
-//   const valueDesc = inputSearchDescElement.value;
-// });
+searchButton.addEventListener('click', (event) =>
+  searchButtonClickHandler(event)
+);
 
 /*END EVENTS*/
